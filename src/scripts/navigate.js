@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import shell from 'shelljs';
+import os from 'os';
 
 function setWorkingDirectory(projectName) {
-    const routeRacoonPath = 'C://ProgramFiles/RouteRacoon';
+    const userDirectory = os.homedir();
+    const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
     const configPath = path.join(routeRacoonPath, 'config.json');
 
     if (fs.existsSync(configPath)) {

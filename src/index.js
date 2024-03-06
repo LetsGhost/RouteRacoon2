@@ -69,4 +69,9 @@ program
       });
   });
 
+  program
+    .command("l")
+    .description("to list all projects")
+    .action(())
+
 program.parse(process.argv);
