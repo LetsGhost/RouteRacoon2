@@ -5,6 +5,7 @@ import ora from "ora";
 import fs from "fs";
 import shell from "shelljs";
 
+
 const program = new Command();
 
 program.version("0.0.1").description("Route Racoon - your personal navigation assistant!");
@@ -45,7 +46,7 @@ program
     inquirer
       .prompt([
         {
-          name: "project",
+          name: "name",
           type: "input",
           message: "What is the name of the new project?",
           validate: function (value) {
@@ -56,15 +57,26 @@ program
             }
           },
         },
+        {
+          name: "path",
+          type: "input",
+          message: "What is the path of the new project?",
+          validate: function (value) {
+            if (value.length) {
+              return true;
+            } else {
+              return "Route Racoon needs a path for the new project!";
+            }
+          },
+        },
       ])
       .then((answers) => {
-        const spinner = ora("Creating a new project...").start();
+        const spinner = ora("Route Racoon is building a new project path...").start();
 
-        
 
         setTimeout(() => {
           spinner.stop();
-          console.log(chalk.green("Project " + answers.project + " created!"));
+          console.log(chalk.green("Project " + answers.name + " created!"));
         }, 2000);
       });
   });
