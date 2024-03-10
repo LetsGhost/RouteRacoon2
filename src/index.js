@@ -56,32 +56,35 @@ program
       .then((answers) => {
         const spinner = ora("Route Racoon is building a new project path...").start();
 
-<<<<<<< HEAD
-
         setTimeout(() => {
           spinner.stop();
-=======
-        const {success, message} = createProject(answers.name, answers.path)
+          const {success, message} = createProject(answers.name, answers.path)
+          
+          if (!success) {
+            spinner.stop();
+            console.log(chalk.red(message));
+            return;
+          }
         
-        if (!success) {
-          spinner.stop();
-          console.log(chalk.red(message));
-          return;
-        }
-
-        setTimeout(() => {
-          spinner.succeed();
->>>>>>> a2889170263cb5e5907bf41614b2c328d8255a91
-          console.log(chalk.green("Project " + answers.name + " created!"));
+          setTimeout(() => {
+            spinner.succeed();
+        
+            console.log(chalk.green("Project " + answers.name + " created!"));
+          }, 2000);
         }, 2000);
       });
   });
 
   program
-    .command("l")
-    .description("to list all projects")
-    .action((
-     listAll()
-    ))
+  .command("l")
+  .description("to list all projects")
+  .action(() => {
+   const items = listAll();
 
-program.parse(process.argv);
+   items.forEach(item => {
+    const spinner = ora(item).start();
+    setTimeout(() => spinner.succeed(), 1000);
+});
+  })
+
+program.parse(process.argv)

@@ -1,26 +1,19 @@
 import fs from 'fs';
 
-import {getPath} from './fsMain.js';
+import {getData} from './fsMain.js';
 
 function listAll(){
-    const path = getPath();
+    const data = getData();
 
-    if (fs.existsSync(path)) {
-        const rawData = fs.readFileSync(path);
-        const config = JSON.parse(rawData);
-
-        let projects = []
-
-        for (let project in config) {
-            projects.push({ name: project, path: config[project] });
+    if(data){
+        let list = [];
+        console.log(data);
+        for(const key in data){
+            list.push(key);
         }
-
-        return {
-            success: true,
-            projects
-        }
+        return list;
     } else {
-        throw new Error('Config file not found');
+        return [];
     }
 }
 
