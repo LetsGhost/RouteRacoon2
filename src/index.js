@@ -7,6 +7,7 @@ import ora from "ora";
 
 import { createProject } from "./scripts/createProject.js";
 import { setWorkingDirectory } from "./scripts/navigate.js";
+import { listAll } from "./scripts/list.js";
 
 const program = new Command();
 
@@ -72,6 +73,8 @@ program
   program
     .command("l")
     .description("to list all projects")
-    .action(())
+    .action((
+     listAll()
+    ))
 
 program.parse(process.argv);
