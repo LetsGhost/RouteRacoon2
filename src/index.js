@@ -9,6 +9,7 @@ import { createProject } from "./scripts/createProject.js";
 import { setWorkingDirectory } from "./scripts/navigate.js";
 import { listAll } from "./scripts/list.js";
 
+
 const program = new Command();
 
 program.version("0.0.1").description("Route Racoon - your personal navigation assistant!");
@@ -53,8 +54,13 @@ program
         },
       ])
       .then((answers) => {
-        const spinner = ora("Creating a new project...").start();
+        const spinner = ora("Route Racoon is building a new project path...").start();
 
+<<<<<<< HEAD
+
+        setTimeout(() => {
+          spinner.stop();
+=======
         const {success, message} = createProject(answers.name, answers.path)
         
         if (!success) {
@@ -65,6 +71,7 @@ program
 
         setTimeout(() => {
           spinner.succeed();
+>>>>>>> a2889170263cb5e5907bf41614b2c328d8255a91
           console.log(chalk.green("Project " + answers.name + " created!"));
         }, 2000);
       });
