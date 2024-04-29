@@ -15,7 +15,8 @@ const program = new Command();
 program.version("0.0.1").description("Route Racoon - your personal navigation assistant!");
 
 program
-  .command("n")
+  .command("navigate")
+  .alias("n")
   .description("to navigate to a new location")
   .argument("<project>", "project name")
   .action((project) => {
@@ -23,7 +24,8 @@ program
   });
 
 program
-  .command("c")
+  .command("create")
+  .alias("c")
   .description("to create a new location")
   .action(() => {
     inquirer
@@ -76,7 +78,8 @@ program
   });
 
   program
-  .command("l")
+  .command("list")
+  .alias("l")
   .description("to list all projects")
   .action(() => {
    const items = listAll();
