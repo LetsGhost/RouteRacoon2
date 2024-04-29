@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import shell from 'shelljs';
 import os from 'os';
+import { exec } from 'child_process';
+import { stringify } from 'querystring';
 
 function setWorkingDirectory(projectName) {
     const userDirectory = os.homedir();
@@ -13,7 +14,22 @@ function setWorkingDirectory(projectName) {
         const config = JSON.parse(rawData);
 
         if (config[projectName]) {
-            shell.cd(config[projectName]);
+            const path = stringify(config[projectName])
+             console.log(config[projectName])
+            exec(`powershell.exe -File ./src/pw-scripts/changeDir.ps1 ${JSON.stringify(config[projectName])}`, (error, stdout, stderr) => {
+                console.log(stdout);
+                console.log(stderr)
+                if (error) {
+                    console.error(`Project not found`);
+                    return;
+                }
+
+                if(stderr) {
+                    console.error("Project not found");
+                    return;
+                }
+
+            })
         } else {
             throw new Error ('Project not found');
         }
