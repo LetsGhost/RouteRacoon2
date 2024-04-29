@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import shell from 'shelljs';
 import os from 'os';
+import process from 'process';
 
 function setWorkingDirectory(projectName) {
     const userDirectory = os.homedir();
@@ -13,7 +14,7 @@ function setWorkingDirectory(projectName) {
         const config = JSON.parse(rawData);
 
         if (config[projectName]) {
-            shell.cd(config[projectName]);
+            process.chdir("C:\\Users\\Ehrling\\RouteRacoon");
         } else {
             throw new Error ('Project not found');
         }
