@@ -9,10 +9,11 @@ import { createProject } from "./scripts/createProject.js";
 import { setWorkingDirectory } from "./scripts/navigate.js";
 import { listAll } from "./scripts/list.js";
 
-
 const program = new Command();
 
-program.version("0.0.1").description("Route Racoon - your personal navigation assistant!");
+program
+  .version("0.0.1")
+  .description("Route Racoon - your personal navigation assistant!");
 
 program
   .command("navigate")
@@ -56,21 +57,26 @@ program
         },
       ])
       .then((answers) => {
-        const spinner = ora("Route Racoon is building a new project path...").start();
+        const spinner = ora(
+          "Route Racoon is building a new project path..."
+        ).start();
 
         setTimeout(() => {
           spinner.stop();
-          const {success, message} = createProject(answers.name, answers.path)
-          
+          const { success, message } = createProject(
+            answers.name,
+            answers.path
+          );
+
           if (!success) {
             spinner.stop();
             console.log(chalk.red(message));
             return;
           }
-        
+
           setTimeout(() => {
             spinner.succeed();
-        
+
             console.log(chalk.green("Project " + answers.name + " created!"));
           }, 2000);
         }, 2000);
@@ -82,12 +88,12 @@ program
   .alias("l")
   .description("to list all projects")
   .action(() => {
-   const items = listAll();
+    const items = listAll();
 
-   items.forEach(item => {
-    const spinner = ora(item).start();
-    setTimeout(() => spinner.succeed(), 1000);
-});
-  })
+    console.log(chalk.yellow("Route Racoon is listing:"))
+    items.forEach((item, index) => {
+      console.log(chalk.green(`${index + 1} ${chalk.yellow(item.name)}: ${chalk.cyan(item.path)}`));
+    });
+  });
 
-program.parse(process.argv)
+program.parse(process.argv);
