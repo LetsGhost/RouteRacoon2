@@ -16,7 +16,6 @@ function setWorkingDirectory(projectName) {
             console.log('Starting directory: ' + process.cwd());
             try {
                 process.chdir(config[projectName]);
-                console.log('New directory: ' + process.cwd());
                 const newTerminal = spawn('powershell', ['-Command', 'Start-Process', 'powershell'], { shell: true });
                 newTerminal.on('error', (error) => {
                     console.error(`spawn error: ${error}`);
