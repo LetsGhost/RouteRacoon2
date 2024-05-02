@@ -8,6 +8,8 @@ import ora from "ora";
 import { createProject } from "./scripts/createProject.js";
 import { setWorkingDirectory } from "./scripts/navigate.js";
 import { listAll } from "./scripts/list.js";
+import { deleteEntry } from "./scripts/delete.js";
+import { renameEntry } from "./scripts/rename.js";
 
 const program = new Command();
 
@@ -95,5 +97,67 @@ program
       console.log(chalk.green(`${index + 1} ${chalk.yellow(item.name)}: ${chalk.cyan(item.path)}`));
     });
   });
+
+  program
+  .command("delete")
+  .alias("d")
+  .description("to delete a project")
+  .action(() => {
+    const items = listAll();
+
+    inquirer
+      .prompt([
+        {
+          name: "project",
+          type: "list",
+          message: "Which project would you like to delete?",
+          choices: items.map((item) => item.name),
+        },
+      ])
+      .then((answers) => {
+        deleteEntry(answers.project);
+        console.log(chalk.red("Project " + chalk.white(answers.project) + " deleted!"));
+      });
+  })
+
+  program 
+  .command("rename")
+  .alias(r)
+  .description("rename a project")
+  .action(() => {
+    const items = listAll
+
+    inquirer
+    .prompt([
+      {
+        name: "project",
+        type: "list",
+        message: "Which project would you like to rename",
+        choices: items.map((item) => item.name)
+      }
+    ])
+    .then((answers) => {
+      const oldName = answers.name
+      inquirer
+      .prompt([
+        {
+          name: "name",
+          type: "input",
+          message: "What name should the project have?",
+          validate: function (value) {
+            if (value.length) {
+              return true;
+            } else {
+              return "Route Racoon needs a name for the project!";
+            }
+          },
+        }
+        .then((answers) => {
+          renameEntry(oldName, answers.name)
+        })
+      ])
+    })
+  })
+  
 
 program.parse(process.argv);
