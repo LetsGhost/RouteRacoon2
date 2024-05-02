@@ -21,6 +21,15 @@ function getData(){
     return JSON.stringify(parsedData);
 }
 
+function setData(data){
+    const userDirectory = os.homedir();
+    const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
+    const configPath = path.join(routeRacoonPath, 'config.json');
+
+    fs.writeFileSync(configPath, JSON.stringify(data));
+}
+
 export {
-    getData
+    getData,
+    setData
 }
