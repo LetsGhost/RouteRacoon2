@@ -14,16 +14,36 @@ import { renameEntry } from "./scripts/rename.js";
 const program = new Command();
 
 program
-  .version("0.0.1")
+  .version("0.5.0")
   .description("Route Racoon - your personal navigation assistant!");
 
 program
   .command("navigate")
   .alias("n")
   .description("to navigate to a new location")
-  .argument("<project>", "project name")
+  .argument("[project]", "project name")
   .action((project) => {
-    setWorkingDirectory(project);
+    if(project === undefined) {
+      const items = listAll();
+
+      inquirer
+      .prompt([
+        {
+          name: "project",
+          type: "list",
+          message: "Where would you like to navigate to?",
+          choices: items.map((item) => item.name),
+        },
+      ])
+      .then((answers) => {
+        setWorkingDirectory(answers.project);
+        console.log(chalk.green("Navigating to " + answers.project + "..."));
+      });
+    } else {
+      setWorkingDirectory(project);
+      console.log(chalk.green("Navigating to " + project + "..."));
+    }
+
   });
 
 program
