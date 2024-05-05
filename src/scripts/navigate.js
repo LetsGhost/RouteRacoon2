@@ -20,7 +20,7 @@ function setWorkingDirectory(projectName) {
                 newTerminal.on('error', (error) => {
                     console.error(`spawn error: ${error}`);
                 });
-
+                
             } catch (err) {
                 console.error('chdir: ' + err);
             }
