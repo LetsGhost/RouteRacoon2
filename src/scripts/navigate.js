@@ -20,14 +20,15 @@ function setWorkingDirectory(projectName) {
                 newTerminal.on('error', (error) => {
                     console.error(`spawn error: ${error}`);
                 });
+
             } catch (err) {
                 console.error('chdir: ' + err);
             }
         } else {
-            throw new Error ('Project not found');
+            console.error('Project not found');
         }
     } else {
-        throw new Error ('No projects found');
+        console.error('Config file not found');
     }
 }
 
