@@ -122,7 +122,7 @@ program
 
   program 
   .command("rename")
-  .alias(r)
+  .alias("r")
   .description("rename a project")
   .action(() => {
     const items = listAll
