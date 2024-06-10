@@ -2,7 +2,7 @@
 
 ## Changelog
 
-- 0.5.1 release
-- Navigating is now possible via a list
-- Delete function
-- Rename function
+- 0.7.0 release
+- Create a project entry from the folder you are in.
+- Fixed: Better way for new Terminal
+- Checking if a folder still exists, if not the project entry gets deletet.
