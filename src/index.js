@@ -66,6 +66,12 @@ program
           },
         },
         {
+          name: "useCurrentPath",
+          type: "confirm",
+          message: "Do you want to use the current terminal path for the new project?",
+          default: false
+        },
+        {
           name: "path",
           type: "input",
           message: "What is the path of the new project?",
@@ -76,6 +82,9 @@ program
               return "Route Racoon needs a path for the new project!";
             }
           },
+          when: function(answers) {
+            return !answers.useCurrentPath;
+          }
         },
       ])
       .then((answers) => {
@@ -85,6 +94,11 @@ program
 
         setTimeout(() => {
           spinner.stop();
+
+          if(answers.useCurrentPath) {
+            answers.path = process.cwd();
+          }
+
           const { success, message } = createProject(
             answers.name,
             answers.path
