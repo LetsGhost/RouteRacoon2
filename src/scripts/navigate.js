@@ -4,30 +4,31 @@ import os from 'os';
 import { exec, spawn } from 'child_process';
 
 function setWorkingDirectory(projectName) {
-    const userDirectory = os.homedir();
-    const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
-    const configPath = path.join(routeRacoonPath, 'config.json');
+    try{
+        const userDirectory = os.homedir();
+        const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
+        const configPath = path.join(routeRacoonPath, 'config.json');
 
-    if (fs.existsSync(configPath)) {
-        const rawData = fs.readFileSync(configPath);
-        const config = JSON.parse(rawData);
+        if (fs.existsSync(configPath)) {
+            const rawData = fs.readFileSync(configPath);
+            const config = JSON.parse(rawData);
 
-        if (config[projectName]) {
-            console.log('Starting directory: ' + process.cwd());
-            try {
-                process.chdir(config[projectName]);
-                const newTerminal = spawn('wt', ['-w', '0', 'new-tab', '-p', 'Windows PowerShell'], { shell: true });
-                newTerminal.on('error', (error) => {
-                    console.error(`spawn error: ${error}`);
+            if (config[projectName]) {
+                const command = `wt -w 0 new-tab --title ${projectName} -p "Windows Powershell" -d ${config[projectName]}`;
+                exec(command, (error, stdout, stderr) => {
+                    if (error) {
+                        console.error(`exec error: ${error}`);
+                        return;
+                    }
                 });
-            } catch (err) {
-                console.error('chdir: ' + err);
+            } else {
+                console.error('Project not found');
             }
         } else {
-            console.error('Project not found');
+            console.error('Config file not found');
         }
-    } else {
-        console.error('Config file not found');
+    } catch (error) {
+        console.error(error);
     }
 }
 
