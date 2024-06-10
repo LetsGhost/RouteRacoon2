@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { spawn } from 'child_process';
+import { exec, spawn } from 'child_process';
 
 function setWorkingDirectory(projectName) {
     const userDirectory = os.homedir();
@@ -16,11 +16,10 @@ function setWorkingDirectory(projectName) {
             console.log('Starting directory: ' + process.cwd());
             try {
                 process.chdir(config[projectName]);
-                const newTerminal = spawn('powershell', ['-Command', 'Start-Process', 'powershell'], { shell: true });
+                const newTerminal = spawn('wt', ['-w', '0', 'new-tab', '-p', 'Windows PowerShell'], { shell: true });
                 newTerminal.on('error', (error) => {
                     console.error(`spawn error: ${error}`);
                 });
-                
             } catch (err) {
                 console.error('chdir: ' + err);
             }
