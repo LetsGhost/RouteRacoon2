@@ -1,4 +1,4 @@
-import { getData, setData } from "./fsMain.js";
+import { getData, setData } from "../helper/fsMain.js";
 
 function deleteEntry(projectName){
     let data = JSON.parse(getData());

@@ -5,11 +5,11 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import ora from "ora";
 
-import { createProject } from "./scripts/createProject.js";
-import { setWorkingDirectory } from "./scripts/navigate.js";
-import { listAll } from "./scripts/list.js";
-import { deleteEntry } from "./scripts/delete.js";
-import { renameEntry } from "./scripts/rename.js";
+import { createProject } from "./commands/createProject.js";
+import { setWorkingDirectory } from "./commands/navigate.js";
+import { listAll } from "./commands/list.js";
+import { deleteEntry } from "./commands/delete.js";
+import { renameEntry } from "./commands/rename.js";
 
 const program = new Command();
 

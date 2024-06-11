@@ -3,7 +3,7 @@ import path from 'path';
 import os from 'os';
 
 import { projectEntrySchema } from '../schema/projectEntrySchema.js';
-import { getData, setData } from './fsMain.js';
+import { getData, setData } from '../helper/fsMain.js';
 
 function createProject(projectName, projectPath, tabColor) {
     const userDirectory = os.homedir();

@@ -1,4 +1,4 @@
-import { getData, setData } from "./fsMain.js"
+import { getData, setData } from "../helper/fsMain.js"
 
 function renameEntry(oldName, newName){
     const data = JSON.parse(getData())

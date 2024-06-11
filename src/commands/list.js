@@ -1,4 +1,4 @@
-import {getData} from './fsMain.js';
+import {getData} from '../helper/fsMain.js';
 
 function listAll(){
     const rawData = JSON.parse(getData());
