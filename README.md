@@ -7,7 +7,7 @@
 - Fixed: Better way for new Terminal
 - Checking if a folder still exists, if not the project entry gets deletet.
 - Changed the way of saving the entrys.
-
+- Add tabColor as an option.
 
 ## Attention
 
