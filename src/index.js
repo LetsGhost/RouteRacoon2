@@ -128,7 +128,7 @@ program
           let tabColor = answers.color;
 
           if(!answers.tabColor) {
-            tabColor = "#FF0000";
+            tabColor = "No color";
           }
 
           const { success, message } = createProject(
