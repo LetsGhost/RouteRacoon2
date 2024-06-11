@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import os from 'os'
 
-const folder = process.env.NODE_ENV || "RouteRacoon";
+const folder = (process.env.NODE_ENV || "RouteRacoon").trim();
 
 function getData(){
     const userDirectory = os.homedir();
