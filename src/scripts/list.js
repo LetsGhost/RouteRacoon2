@@ -1,14 +1,11 @@
-import fs from 'fs';
-
 import {getData} from './fsMain.js';
 
 function listAll(){
-    const rawData = getData();
-    const data = JSON.parse(rawData);
+    const rawData = JSON.parse(getData());
 
     let list = [];
-    for(const key in data){
-        list.push({name: key, path: data[key]});
+    for(const project of rawData.projects){
+        list.push({name: project.name, path: project.projectPath});
     }
     return list;
 }

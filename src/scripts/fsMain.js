@@ -5,7 +5,7 @@ import os from 'os'
 function getData(){
     const userDirectory = os.homedir();
     const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
-    const configPath = path.join(routeRacoonPath, 'config.json');
+    const configPath = path.join(routeRacoonPath, 'projects.json');
 
     if(!fs.existsSync(routeRacoonPath)){
         fs.mkdirSync(routeRacoonPath);
@@ -24,7 +24,7 @@ function getData(){
 function setData(data){
     const userDirectory = os.homedir();
     const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
-    const configPath = path.join(routeRacoonPath, 'config.json');
+    const configPath = path.join(routeRacoonPath, 'projects.json');
 
     fs.writeFileSync(configPath, JSON.stringify(data));
 }

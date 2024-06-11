@@ -86,6 +86,27 @@ program
             return !answers.useCurrentPath;
           }
         },
+        {
+          name: "tabColor",
+          type: "confirm",
+          message: "Do you want to set a color for the tab?",
+          default: false
+        },
+        {
+          name: "color",
+          type: "input",
+          message: "What color should the tab have? (Use HEX format e.g. #FF0000)",
+          validate: function (value) {
+            if (value.length) {
+              return true;
+            } else {
+              return "Route Racoon needs a color for the tab!";
+            }
+          },
+          when: function(answers) {
+            return answers.tabColor;
+          }
+        }
       ])
       .then((answers) => {
         const spinner = ora(
@@ -99,9 +120,16 @@ program
             answers.path = process.cwd();
           }
 
+          let tabColor = answers.color;
+
+          if(!answers.tabColor) {
+            tabColor = "#FF0000";
+          }
+
           const { success, message } = createProject(
             answers.name,
-            answers.path
+            answers.path,
+            tabColor
           );
 
           if (!success) {
@@ -159,7 +187,7 @@ program
   .alias("r")
   .description("rename a project")
   .action(() => {
-    const items = listAll
+    const items = listAll();
 
     inquirer
     .prompt([
@@ -186,10 +214,10 @@ program
             }
           },
         }
-        .then((answers) => {
-          renameEntry(oldName, answers.name)
-        })
       ])
+      .then((answers) => {
+        renameEntry(oldName, answers.name)
+      })
     })
   })
   

@@ -2,24 +2,30 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 
-function createProject(projectName, projectPath) {
+import { projectEntrySchema } from '../schema/projectEntrySchema.js';
+import { getData, setData } from './fsMain.js';
+
+function createProject(projectName, projectPath, tabColor) {
     const userDirectory = os.homedir();
     const routeRacoonPath = path.join(userDirectory, 'RouteRacoon');
-    const configPath = path.join(routeRacoonPath, 'config.json');
+    const configPath = path.join(routeRacoonPath, 'projects.json');
 
     if (!fs.existsSync(routeRacoonPath)) {
         fs.mkdirSync(routeRacoonPath, { recursive: true });
     }
 
-    let config = {};
-    if (fs.existsSync(configPath)) {
-        const rawData = fs.readFileSync(configPath);
-        config = JSON.parse(rawData);
-    }
+    let config = JSON.parse(getData());
 
-    if(!config[projectName]) {
-        config[projectName] = projectPath;
-        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+    if(!config.projects.find(project => project.name === projectName)) {
+        const newProject = {
+            ...projectEntrySchema,
+            name: projectName,
+            projectPath: projectPath,
+            tabColor: tabColor,
+            createdDate: new Date()
+        }
+        config.projects.push(newProject)
+        setData(config);
 
         return {
             success: true,

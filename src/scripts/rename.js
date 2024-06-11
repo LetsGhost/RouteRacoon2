@@ -3,9 +3,8 @@ import { getData, setData } from "./fsMain.js"
 function renameEntry(oldName, newName){
     const data = JSON.parse(getData())
 
-    if(data[oldName]){
-        data[NewName] = data[oldName]
-        delete data[oldName]
+    if(data.projects.find(project => project.name === oldName)){
+        data.projects.find(project => project.name === oldName).name = newName
     }
 
     setData(data)
