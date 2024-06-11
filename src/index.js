@@ -10,6 +10,7 @@ import { setWorkingDirectory } from "./commands/navigate.js";
 import { listAll } from "./commands/list.js";
 import { deleteEntry } from "./commands/delete.js";
 import { renameEntry } from "./commands/rename.js";
+import { autoDelete } from "./commands/autodel.js";
 
 const program = new Command();
 
@@ -228,6 +229,27 @@ program
 
       renameEntry(answers.project, answers.name)
     })
+  })
+
+  program
+  .command("autodel")
+  .alias("ad")
+  .description("checks if an folder still exists and deletes the entry if not")
+  .action(() => {
+    let spinner = ora("RouteRaccoon is checking the entry's...").start();
+
+    const { delObjects } = autoDelete();
+
+    if(delObjects === undefined || delObjects.length === 0) {
+      spinner.fail(chalk.red("No entries deleted!"));
+      return;
+    }
+
+    spinner.succeed(chalk.green("Entries deleted!"));
+    console.log(chalk.red("Deleted: "));
+    delObjects.forEach((object, index) => {
+      console.log(chalk.red(chalk.white((index + 1)) + " " + object));
+    });
   })
   
 
