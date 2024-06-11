@@ -7,6 +7,7 @@ function listAll(){
     for(const project of rawData.projects){
         list.push({name: project.name, path: project.projectPath});
     }
+
     return list;
 }
 
