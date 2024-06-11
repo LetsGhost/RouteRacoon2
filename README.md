@@ -15,6 +15,7 @@ npm i -g routeracoon2
 - Changed the way of saving the entrys.
 - Add tabColor as an option.
 - Add dev mode.
+- List command has now a table.
 
 ## Attention
 
