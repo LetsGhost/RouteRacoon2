@@ -21,7 +21,6 @@ autoDeleteTask();
 const program = new Command();
 
 program
-  .version("0.5.0")
   .description("Route Racoon - your personal navigation assistant!");
 
 program
