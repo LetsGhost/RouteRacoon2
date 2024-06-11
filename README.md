@@ -1,5 +1,11 @@
 # RouteRacoon2
 
+## How to install
+
+```Shell
+npm i -g routeracoon2
+```
+
 ## Changelog
 
 - 0.7.0 release
