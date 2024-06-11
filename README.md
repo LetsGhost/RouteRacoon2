@@ -14,6 +14,7 @@ npm i -g routeracoon2
 - Checking if a folder still exists, if not the project entry gets deleted.
 - Changed the way of saving the entrys.
 - Add tabColor as an option.
+- Add dev mode.
 
 ## Attention
 
