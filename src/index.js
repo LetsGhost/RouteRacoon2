@@ -32,10 +32,15 @@ program
           name: "project",
           type: "list",
           message: "Where would you like to navigate to?",
-          choices: items.map((item) => item.name),
+          choices: items.length > 0 ? items.map((item) => item.name) : ["No items available"],
         },
       ])
       .then((answers) => {
+        if(answers.project === "No items available") {
+          console.log(chalk.red("No projects found!"));
+          return;
+        }
+
         setWorkingDirectory(answers.project);
         console.log(chalk.green("Navigating to " + answers.project + "..."));
       });
@@ -173,10 +178,15 @@ program
           name: "project",
           type: "list",
           message: "Which project would you like to delete?",
-          choices: items.map((item) => item.name),
+          choices: items.length > 0 ? items.map((item) => item.name) : ["No items available"],
         },
       ])
       .then((answers) => {
+        if(answers.project === "No items available") {
+          console.log(chalk.red("No projects found!"));
+          return;
+        }
+
         deleteEntry(answers.project);
         console.log(chalk.red("Project " + chalk.white(answers.project) + " deleted!"));
       });
@@ -195,29 +205,28 @@ program
         name: "project",
         type: "list",
         message: "Which project would you like to rename",
-        choices: items.map((item) => item.name)
+        choices: items.length > 0 ? items.map((item) => item.name) : ["No items available"],
+      },
+      {
+        name: "name",
+        type: "input",
+        message: "What name should the project have?",
+        validate: function (value) {
+          if (value.length) {
+            return true;
+          } else {
+            return "Route Racoon needs a name for the project!";
+          }
+        },
       }
     ])
     .then((answers) => {
-      const oldName = answers.name
-      inquirer
-      .prompt([
-        {
-          name: "name",
-          type: "input",
-          message: "What name should the project have?",
-          validate: function (value) {
-            if (value.length) {
-              return true;
-            } else {
-              return "Route Racoon needs a name for the project!";
-            }
-          },
-        }
-      ])
-      .then((answers) => {
-        renameEntry(oldName, answers.name)
-      })
+      if(answers.project === "No items available") {
+        console.log(chalk.red("No projects found!"));
+        return;
+      }
+
+      renameEntry(answers.project, answers.name)
     })
   })
   
