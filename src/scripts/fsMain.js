@@ -12,7 +12,15 @@ function getData(){
     }
 
     if(!fs.existsSync(configPath)){
-        fs.writeFileSync(configPath, JSON.stringify({}));
+        fs.writeFileSync(configPath, JSON.stringify({
+            projects: []
+        }));
+    }
+
+    if(fs.readFileSync(configPath, 'utf8') === ''){
+        fs.writeFileSync(configPath, JSON.stringify({
+            projects: []
+        }));
     }
 
     const rawData = fs.readFileSync(configPath, 'utf8');
