@@ -12,6 +12,11 @@ import { deleteEntry } from "./commands/delete.js";
 import { renameEntry } from "./commands/rename.js";
 import { autoDelete } from "./commands/autodel.js";
 
+import { autoDeleteTask } from "./tasks/autoDelTask.js";
+
+// Tasks
+autoDeleteTask();
+
 const program = new Command();
 
 program
