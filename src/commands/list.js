@@ -5,7 +5,9 @@ function listAll(){
 
     let list = [];
     for(const project of rawData.projects){
-        list.push({name: project.name, path: project.projectPath});
+        let date = project.createdDate.slice(0, 10); // Extracts the date part of the string
+
+        list.push({name: project.name, path: project.projectPath, tabColor: project.tabColor, date: date});
     }
 
     return list;

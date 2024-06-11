@@ -4,6 +4,7 @@ import { Command } from "commander";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import ora from "ora";
+import Table from "cli-table";
 
 import { createProject } from "./commands/createProject.js";
 import { setWorkingDirectory } from "./commands/navigate.js";
@@ -165,10 +166,20 @@ program
   .action(() => {
     const items = listAll();
 
-    console.log(chalk.yellow("Route Racoon is listing:"))
-    items.forEach((item, index) => {
-      console.log(chalk.green(`${index + 1} ${chalk.yellow(item.name)}: ${chalk.cyan(item.path)}`));
+    const tableItems = items.map((item, index) => ([
+      index + 1,
+      item.name,
+      item.path,
+      item.tabColor,
+      item.date
+    ]));
+  
+    let table = new Table({ head: ["No.", "Name", "Path", "Tab Color", "Date"], style: { head: ["white"] } });
+    tableItems.forEach(item => {
+      table.push(item);
     });
+  
+    console.log(table.toString());
   });
 
   program
