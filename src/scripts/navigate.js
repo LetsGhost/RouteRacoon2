@@ -14,8 +14,11 @@ function setWorkingDirectory(projectName) {
             const config = JSON.parse(rawData);
 
             if (config.projects.find(project => project.name === projectName)) {
+                // get the project object
+                const project = config.projects.find(project => project.name === projectName);
+
                 // Implement tab color
-                const command = `wt -w 0 new-tab --title ${projectName} -p "Windows Powershell" -d ${config.projects.find(project => project.name === projectName).projectPath}`;
+                const command = `wt -w 0 new-tab --title ${projectName} --tabColor ${project.tabColor} -p "Windows Powershell" -d ${project.projectPath}`;
                 exec(command, (error, stdout, stderr) => {
                     if (error) {
                         console.error(`exec error: ${error}`);
