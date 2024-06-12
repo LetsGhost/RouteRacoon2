@@ -15,7 +15,7 @@ function autoDeleteTask(){
 
     metadata.autoDel.date = new Date();
 
-    setMetadata(JSON.stringify(metadata));
+    setMetadata(metadata);
 
     console.log(chalk.green("Auto delete task completed!"));
     return;
