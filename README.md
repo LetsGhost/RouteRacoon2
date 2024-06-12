@@ -8,7 +8,7 @@ npm i -g routeracoon2
 
 ## Changelog
 
-- 0.7.0 release
+- 0.7.1 release
 - Create a project entry from the folder you are in.
 - Fixed: Better way for new Terminal
 - Checking if a folder still exists, if not the project entry gets deleted.
@@ -16,6 +16,8 @@ npm i -g routeracoon2
 - Add tabColor as an option.
 - Add dev mode.
 - List command has now a table.
+
+- Fix: autoDelete didnt worked properly.
 
 ## Attention
 
