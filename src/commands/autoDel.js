@@ -1,4 +1,6 @@
 import fs from 'fs';
+import chalk from 'chalk';
+import ora from 'ora';
 
 import { getData, setData } from '../helper/fsMain.js';
 
@@ -27,6 +29,28 @@ function autoDelete(){
   }
 }
 
+function autoDeleteCommand(program){
+  program
+  .command("autodel")
+  .alias("ad")
+  .description("checks if an folder still exists and deletes the entry if not")
+  .action(() => {
+    let spinner = ora("RouteRaccoon is checking the entry's...").start();
+
+    const result = autoDelete();
+
+    if(result === undefined || result.length === 0) {
+      spinner.fail(chalk.red("No entries deleted!"), { color: "red" });
+      return;
+    }
+
+    spinner.succeed(chalk.green("Entries deleted:"), { color: "green" });
+    result.forEach((object, index) => {
+      console.log(chalk.red(chalk.white((index + 1)) + " " + object));
+    });
+  })
+}
+
 export {
-    autoDelete
+  autoDeleteCommand
 }

@@ -1,3 +1,5 @@
+import Table from 'cli-table';
+
 import {getData} from '../helper/fsMain.js';
 
 function listAll(){
@@ -13,6 +15,31 @@ function listAll(){
     return list;
 }
 
+function listAllCommand(program){
+    program
+    .command("list")
+    .alias("l")
+    .description("to list all projects")
+    .action(() => {
+      const items = listAll();
+  
+      const tableItems = items.map((item, index) => ([
+        index + 1,
+        item.name,
+        item.path,
+        item.tabColor,
+        item.date
+      ]));
+    
+      let table = new Table({ head: ["No.", "Name", "Path", "Tab Color", "Date"], style: { head: ["white"] } });
+      tableItems.forEach(item => {
+        table.push(item);
+      });
+    
+      console.log(table.toString());
+    });
+}
+
 export {
-    listAll
+    listAllCommand
 }
