@@ -122,10 +122,10 @@ program
       .then((answers) => {
         const spinner = ora(
           "Route Racoon is building a new project path..."
-        ).start();
+        ).start({ color: "yellow"});
 
         setTimeout(() => {
-          spinner.stop();
+          spinner.stop({ color: "yellow"});
 
           if(answers.useCurrentPath) {
             answers.path = process.cwd();
@@ -144,13 +144,13 @@ program
           );
 
           if (!success) {
-            spinner.stop();
+            spinner.stop({ color: "red" });
             console.log(chalk.red(message));
             return;
           }
 
           setTimeout(() => {
-            spinner.succeed();
+            spinner.succeed({ color: "green" });
 
             console.log(chalk.green("Project " + answers.name + " created!"));
           }, 2000);
@@ -253,16 +253,15 @@ program
   .action(() => {
     let spinner = ora("RouteRaccoon is checking the entry's...").start();
 
-    const { delObjects } = autoDelete();
+    const result = autoDelete();
 
-    if(delObjects === undefined || delObjects.length === 0) {
-      spinner.fail(chalk.red("No entries deleted!"));
+    if(result === undefined || result.length === 0) {
+      spinner.fail(chalk.red("No entries deleted!"), { color: "red" });
       return;
     }
 
-    spinner.succeed(chalk.green("Entries deleted!"));
-    console.log(chalk.red("Deleted: "));
-    delObjects.forEach((object, index) => {
+    spinner.succeed(chalk.green("Entries deleted:"), { color: "green" });
+    result.forEach((object, index) => {
       console.log(chalk.red(chalk.white((index + 1)) + " " + object));
     });
   })
