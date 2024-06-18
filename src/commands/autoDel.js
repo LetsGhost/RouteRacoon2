@@ -21,7 +21,7 @@ function autoDelete(){
     }
 
     setData(db);
-    return { delObjects };
+    return delObjects;
   } catch (error) {
     console.error(error);
   }
