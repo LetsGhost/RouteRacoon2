@@ -19,7 +19,8 @@
     "cli-table": "^0.3.11",
     "commander": "^12.0.0",
     "inquirer": "^9.2.14",
-    "ora": "^8.0.1"
+    "ora": "^8.0.1",
+    "update-notifier": "^7.0.0"
   },
   "repository": {
     "type": "git",
