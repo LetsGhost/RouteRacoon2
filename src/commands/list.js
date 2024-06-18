@@ -41,5 +41,6 @@ function listAllCommand(program){
 }
 
 export {
-    listAllCommand
+  listAllCommand,
+  listAll
 }

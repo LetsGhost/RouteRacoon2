@@ -2,6 +2,7 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 
 import { getData, setData } from "../helper/fsMain.js";
+import { listAll } from "./list.js";
 
 function deleteEntry(projectName){
     let data = JSON.parse(getData());
