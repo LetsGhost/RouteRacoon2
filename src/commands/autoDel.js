@@ -52,5 +52,6 @@ function autoDeleteCommand(program){
 }
 
 export {
-  autoDeleteCommand
+  autoDeleteCommand,
+  autoDelete
 }
