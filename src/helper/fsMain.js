@@ -2,6 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import os from 'os'
 
+import version from '../../package.json' assert { type: "json" };
+
 const folder = (process.env.NODE_ENV || "RouteRacoon").trim();
 
 function getData(){
@@ -52,7 +54,8 @@ function getMetadata(){
         fs.writeFileSync(configPath, JSON.stringify({
             autoDel: {
                 date: new Date()
-            }
+            },
+            version: version.version
         }));
     }
 

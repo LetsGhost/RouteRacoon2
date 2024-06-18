@@ -10,14 +10,17 @@ import { renameEntryCommand } from "./commands/rename.js";
 import { autoDeleteCommand } from "./commands/autodel.js";
 
 import { autoDeleteTask } from "./tasks/autoDelTask.js";
+import { checkForUpdates } from "./tasks/checkUpdatesTask.js";
 
 // Tasks
 autoDeleteTask();
+checkForUpdates();
 
 const program = new Command();
 
 program
-  .description("Route Racoon - your personal navigation assistant!");
+  .description("Route Racoon - your personal navigation assistant!")
+
 
 navigateCommand(program);
 createProjectCommand(program);
