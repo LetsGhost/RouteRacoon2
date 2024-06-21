@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import os from 'os'
 
-import version from '../../package.json' assert { type: "json" };
+import { metadataSchema } from '../schema/metadataSchema.js';
 
 const folder = (process.env.NODE_ENV || "RouteRacoon").trim();
 
@@ -51,20 +51,11 @@ function getMetadata(){
     }
 
     if(!fs.existsSync(configPath)){
-        fs.writeFileSync(configPath, JSON.stringify({
-            autoDel: {
-                date: new Date()
-            },
-            version: version.version
-        }));
+        fs.writeFileSync(configPath, JSON.stringify(metadataSchema, null, 2));
     }
 
     if(fs.readFileSync(configPath, 'utf8') === ''){
-        fs.writeFileSync(configPath, JSON.stringify({
-            autoDel: {
-                date: new Date()
-            }
-        }));
+        fs.writeFileSync(configPath, JSON.stringify(metadataSchema, null, 2));
     }
 
     const rawData = fs.readFileSync(configPath, 'utf8');
