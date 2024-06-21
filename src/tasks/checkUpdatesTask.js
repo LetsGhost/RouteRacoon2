@@ -1,32 +1,31 @@
 import updateNotifier from "update-notifier";
+import boxen from "boxen";
+import chalk from "chalk";
 
 import { getMetadata, setMetadata } from "../helper/fsMain.js";
+
 
 function checkForUpdates(){
     const metadata = JSON.parse(getMetadata());
 
-    const currentDate = new Date().toISOString().split('T')[0];
-    const lastCheckedDate = new Date(metadata.autoDel.date).toISOString().split('T')[0];
+    const notifier = updateNotifier({
+        pkg: {
+            name: "routeraccoon2",
+            version: metadata.taskData.updateNotifier.version
+        },
+        updateCheckInterval: 86400000
+    })
 
-    if(currentDate === lastCheckedDate){
-        const notifier = updateNotifier({
-            pkg: {
-                name: "routeraccoon2",
-                version: metadata.version
-            }
-        })
-    
-        if(notifier.update){
-            setMetadata({
-                autoDel: {
-                    date: new Date()
-                },
-                version: notifier.update.latest
-            });
-        }
-    
-        notifier.notify();
-    }
+    if(!notifier.update) return;
+
+    metadata.taskData.updateNotifier.version = notifier.update.latest;
+
+    setMetadata(metadata);
+
+    console.log(boxen(
+        `Hey there is a new version ${chalk.red(notifier.update.latest)}`, 
+        { padding: 1, margin: 1, titleAlignment: "center", title: chalk.green("Update available")}
+    ));
 }
 
 export { checkForUpdates };
