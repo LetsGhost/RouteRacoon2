@@ -13,8 +13,17 @@ import { autoDeleteTask } from "./tasks/autoDelTask.js";
 import { checkForUpdates } from "./tasks/checkUpdatesTask.js";
 
 // Tasks
-autoDeleteTask();
-checkForUpdates();
+import { getDate, setDate } from "./helper/metadataDate.js";
+
+const currentDate = new Date().toISOString().split('T')[0];
+const lastDate = new Date(getDate());
+
+if(new Date(currentDate).getTime() > lastDate.getTime()){
+  autoDeleteTask();
+  checkForUpdates();
+
+  //setDate();
+}
 
 const program = new Command();
 
