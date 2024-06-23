@@ -7,7 +7,6 @@ function autoDeleteTask(){
     const result = autoDelete();
 
     if(result) {
-      console.log(chalk.red("Auto delete task failed!"));
       return;
     } else {
       console.log(chalk.green("Auto delete task completed:"));
